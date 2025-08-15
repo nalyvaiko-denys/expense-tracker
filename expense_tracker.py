@@ -47,10 +47,8 @@ def show_expenses(expenses):
         try:
             days = int(input("Enter number of days: "))
             limit_date = today - timedelta(days = days)
-            for exp in expenses:
-                expense_date = datetime.strptime(exp['date'], "%Y-%m-%d %H:%M:%S")
-                if expense_date >= limit_date and expense_date <= today:
-                    filtered_expenses.append(exp)
+            filtered_expenses = [exp for exp in expenses if
+                                 limit_date <= datetime.strptime(exp['date'], "%Y-%m-%d %H:%M:%S") <= today]
         except ValueError:
             print("Invalid number of days. Showing all expenses.")
             filtered_expenses = expenses
